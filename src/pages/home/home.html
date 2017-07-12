@@ -1,0 +1,25 @@
+<ion-header >
+  <ion-navbar color="header" >
+    <!--<button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>-->
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngFor="let item of list">
+    <ion-item class="check" (click)="openOperation(item)">
+      <h2>{{item.name}}</h2>
+      <p>Saldo: {{item.balance|number:'.2-2'}}</p>
+      <ion-icon name="ios-arrow-forward-outline" item-end></ion-icon>
+    </ion-item>
+  </ion-card>
+
+
+
+  <ion-fab right bottom>
+    <button ion-fab (click)="add()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+</ion-content>
