@@ -9,6 +9,7 @@ import { AccountPageModule } from '../pages/account/account.module';
 import { OperationPageModule } from '../pages/operation/operation.module';
 import { DepositPageModule } from '../pages/deposit/deposit.module';
 import { RetirementPageModule } from '../pages/retirement/retirement.module';
+import { DebtListPageModule } from '../pages/debt-list/debt-list.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -18,7 +19,7 @@ import { SQLite } from '@ionic-native/sqlite';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +28,8 @@ import { SQLite } from '@ionic-native/sqlite';
     OperationPageModule,
     DepositPageModule,
     RetirementPageModule,
-    AccountPageModule
+    AccountPageModule,
+    DebtListPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

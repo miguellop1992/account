@@ -9,9 +9,10 @@ import 'rxjs/add/operator/map';
 export interface IAccount {
     _id?: number;
     multitype_id?: number;
-    name?: string,
+    name?: string;
     observation?: string;
-    balance?: number,
+    coin?: string;
+    balance?: number;
     created?: Date
 }
 
@@ -39,8 +40,14 @@ export class AccountProvider extends Database<IAccount> {
                 observation VARCHAR(256),
                 balance REAL,
                 created DATETIME      
-            );`
-            db.executeSql(account, {}).then(data => resolve_(true)).catch(err => reject_(err));
+            );
+            `
+            
+            db.executeSql(account, {})
+            .then(()=>{
+                db.executeSql("ALTER TABLE account ADD COLUMN coin VARCHAR(50);",{});
+            })
+            .then(data => resolve_(true)).catch(err => reject_(err));
         });
 
     }
@@ -49,9 +56,10 @@ export class AccountProvider extends Database<IAccount> {
     protected insertImp(db: SQLiteObject, value: IAccount): Promise<IAccount | string> {
 
         return new Promise<IAccount | string>((resolve_, reject_) => {
-            db.executeSql('INSERT INTO account (name,observation,balance,created) VALUES(?,?,?,?)',
+            db.executeSql('INSERT INTO account (name,coin,observation,balance,created) VALUES(?,?,?,?,?)',
                 [
                     value.name,
+                    (value.coin) ? value.coin : null,
                     (value.observation) ? value.observation : null,
                     0,
                     new Date().toISOString()

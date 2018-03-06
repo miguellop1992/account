@@ -17,6 +17,7 @@ export class AccountPage {
     this.form = this.fb.group({
       name: new FormControl("", [Validators.required]),
       balance: new FormControl("", []),
+      coin: new FormControl("", []),
       observation: new FormControl("", []),
     });
   }

@@ -11,6 +11,7 @@ export abstract class Database<T>{
   private open(): Promise<boolean> {
     return new Promise((resolve_, reject_) => {
       if (!this.db) {
+        
         this.sqlite.create({
           name: '__.account',
           location: 'default'
