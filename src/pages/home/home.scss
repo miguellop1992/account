@@ -1,3 +1,22 @@
 page-home {
 
+    .card{
+        .close{
+            background: transparent; 
+            position: absolute;
+            color: color($colors,close);
+            top: 10px;
+            right: 10px;
+            z-index: 1;
+        }
+
+        h1.money{
+            text-align: right!important;
+        }
+        
+        .btn-detail{
+            text-align: center;
+            padding: 5px 5px;
+        }
+    }
 }
