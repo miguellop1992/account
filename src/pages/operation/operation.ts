@@ -4,6 +4,7 @@ import { DepositModal } from '../../pages/deposit/deposit';
 import { RetirementModal } from '../../pages/retirement/retirement';
 import { AccountProvider, IAccount } from '../../providers/account.provider';
 import { OperationProvider, IOperation } from '../../providers/operation.provider';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the OperationPage page.
@@ -17,12 +18,12 @@ import { OperationProvider, IOperation } from '../../providers/operation.provide
   templateUrl: 'operation.html',
 })
 export class OperationPage {
-  private data: IAccount ;
+  private data: IAccount;
   private list: IOperation[] = [];
-  private balance:number=0;
-  private add:number=0;
-  private subtract:number=0;
-  
+  private balance: number = 0;
+  private add: number = 0;
+  private subtract: number = 0;
+
   private onDismiss = (data) => {
     if (data) {
       this.ionViewWillEnter();
@@ -30,12 +31,12 @@ export class OperationPage {
   };
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private accProv: AccountProvider, private alertCtrl: AlertController, private opeProv: OperationProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private accProv: AccountProvider, private alertCtrl: AlertController, private opeProv: OperationProvider, public translate: TranslateService) {
     this.data = this.navParams.data;
     this.balance = this.data.balance;
   }
 
-  
+
 
   ionViewWillEnter() {
     this.opeProv.balances(this.data._id).then(data => {
@@ -59,27 +60,32 @@ export class OperationPage {
   }
 
   delete() {
-    let alert = this.alertCtrl.create({
-      title: 'Advertencia',
-      subTitle: '¿Esta seguro que desea eliminar esta cuenta?',
-      buttons: [
-        {
-          text: 'Si',
-          handler: data => {
+    this.translate.get(['label.warn', 'account.msg-delete', 'label.yes', 'label.no']).subscribe(data => {
+      let alert = this.alertCtrl.create({
+        title: data['label.warn'],
+        subTitle: data['account.msg-delete'],
+        buttons: [
+          {
+            text: data['label.yes'],
+            handler: data => {
 
-            this.accProv.delete(this.data._id).then(data => {
-              if (data) {
-                this.navCtrl.getActive().dismiss();
-              }
-            })
+              this.accProv.delete(this.data._id).then(data => {
+                if (data) {
+                  this.navCtrl.getActive().dismiss();
+                }
+              })
+            }
+          }, {
+            text: data['label.no'],
+            role: 'cancel'
           }
-        }, {
-          text: 'No',
-          role: 'cancel'
-        }
-      ]
+        ]
+      });
+      alert.present();
+
+
     });
-    alert.present();
+
   }
 
 }

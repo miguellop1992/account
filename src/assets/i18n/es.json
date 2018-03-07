@@ -1,0 +1,43 @@
+{
+    "label":{
+        "menu": "Menu",
+        "detail": "Detalles",
+        "name": "Nombre",
+        "coin": "Moneda",
+        "balance": "Saldo",
+        "observation": "Observación",
+        "create": "Crear",
+        "delete": "Eliminar",
+        "description": "Descripción",
+        "quantity": "Monto",
+        "deposit": "Abono",
+        "retirement":"Retiro",
+        "close": "Cerrar",
+        "accept": "Aceptar",
+        "warn": "Advertencia",
+        "yes": "Si",
+        "no": "No"
+    },
+    "app-title": "Mis Cuentas",
+    "account":{
+        "title":"Cuentas",
+        "create-title": "Creación de cuenta",
+        "msg-delete":"¿Esta seguro que desea eliminar esta cuenta?"
+    },
+    "debt-list":{
+        "title":"Lista de deudas"
+
+    },
+    "deposit":{
+
+    },
+    "home":{
+
+    },
+    "operation":{
+
+    },
+    "retirement":{
+
+    }
+}

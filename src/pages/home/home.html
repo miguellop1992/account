@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{title}}</ion-title>
+    <ion-title>{{title | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -16,7 +16,7 @@
         <h1 class="money">{{item.balance|number:'.2-2'}}{{ item.coin || '' }}</h1>        
     </ion-item>
     <ion-item color="primary" class="btn-detail" (click)="openOperation(item)">
-      <span>Detalles</span>
+      <span>{{ 'label.detail' | translate }}</span>
     </ion-item>
   </ion-card>
 

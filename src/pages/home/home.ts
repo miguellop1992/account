@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController,  AlertController, Alert,Platform } from 'ionic-angular';
+import { NavController,  AlertController, Alert,Platform } from 'ionic-angular';
 import { AccountPage } from '../../pages/account/account';
 import { OperationPage } from '../../pages/operation/operation';
 import { AccountProvider, IAccount } from '../../providers/account.provider';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'page-home',
@@ -13,7 +14,7 @@ import { AccountProvider, IAccount } from '../../providers/account.provider';
 })
 export class HomePage {
 
-  static title: string = "Cuentas";
+  static title: string = "account.title";
   private list: IAccount[] = [];
   // private list: IAccount[] = [{
   //   balance:400000000000,
@@ -21,7 +22,7 @@ export class HomePage {
   //   coin: "$"
   // }];
 
-  constructor(public navCtrl: NavController, private accProv: AccountProvider, private alertCtrl: AlertController,public plt: Platform) {
+  constructor(public navCtrl: NavController, private accProv: AccountProvider, private alertCtrl: AlertController,public plt: Platform, public translate:TranslateService) {
 
   }
 
@@ -49,26 +50,28 @@ export class HomePage {
   }
 
   delete(acc) {
-    
-    let alert = this.alertCtrl.create({
-      title: 'Advertencia',
-      subTitle: '¿Esta seguro que desea eliminar esta cuenta?',
-      buttons: [
-        {
-          text: 'Si',
-          handler: data => {
-            this.accProv.delete(acc._id).then(data => {
-              if (data) {
-                this.load();
-              }
-            })
+    this.translate.get(['label.warn','account.msg-delete','label.yes','label.no']).subscribe(data=>{
+      let alert = this.alertCtrl.create({
+        title: data['label.warn'],
+        subTitle: data['account.msg-delete'],
+        buttons: [
+          {
+            text: data['label.yes'],
+            handler: data => {
+              this.accProv.delete(acc._id).then(data => {
+                if (data) {
+                  this.load();
+                }
+              })
+            }
+          }, {
+            text: data['label.no'],
+            role: 'cancel'
           }
-        }, {
-          text: 'No',
-          role: 'cancel'
-        }
-      ]
+        ]
+      });
+      alert.present();
     });
-    alert.present();
+    
   }
 }

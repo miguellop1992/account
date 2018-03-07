@@ -13,7 +13,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'debt-list.html',
 })
 export class DebtListPage {
-  static title: string = "Lista de deudas";
+  static title: string = "debt-list.title";
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
