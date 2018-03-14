@@ -19,6 +19,12 @@ export class HomePage {
   // private list: IAccount[] = [{
   //   balance:400000000000,
   //   name: "Pago Mami",
+  //   coin: "$",
+  //   observation: " Data Prieba"
+  // },
+  // {
+  //   balance:400000000000,
+  //   name: "Pago Mami",
   //   coin: "$"
   // }];
 
@@ -33,7 +39,6 @@ export class HomePage {
   }
 
   load(){
-    
     this.accProv.getAll().then(data => this.list = data);
   }
 

@@ -16,7 +16,13 @@
         "accept": "Aceptar",
         "warn": "Advertencia",
         "yes": "Si",
-        "no": "No"
+        "no": "No",
+        "add": "Agregar",
+        "remove": "Quitar",
+        "exit": "Salir",
+        "powerby": "Desarrollado por",
+        "github": "Github",
+        "linkedin": "Linkedin"
     },
     "app-title": "Mis Cuentas",
     "account":{
@@ -25,7 +31,10 @@
         "msg-delete":"¿Esta seguro que desea eliminar esta cuenta?"
     },
     "debt-list":{
-        "title":"Lista de deudas"
+        "title":"Lista de deudas",
+        "add": "Agregar deuda",
+        "to-account": "Llevar a Cuentas",
+        "observation": "Esta cuenta se origino en \"Lista de deudas\""
 
     },
     "deposit":{
@@ -35,9 +44,18 @@
 
     },
     "operation":{
-
+        "msg-delete":"¿Esta seguro que desea eliminar esta transaccion?"
     },
     "retirement":{
 
+    },
+    "about":{
+        "title":"Acerca de ...",
+        "opensource":"Codigo Abierto",
+        "info": "Conocimientos",
+        "powerby": "Ing. Miguel López",
+        "github": "https://github.com/miguellop1992",
+        "linkedin": "https://www.linkedin.com/in/miguellop/",
+        "info-text": "Desarrollo de aplicaciónes con diversas tecnologías como lo son  Java,( JavaFX, JPA, Sprint ), Laravel, NodeJS, Angular y React, para móvil  Ionic con conocimientos en diversas bases de datos Postgresql, MySQL, SQlite, MongoDB y con control de versiones git utilizando metodologia git-flow."
     }
 }

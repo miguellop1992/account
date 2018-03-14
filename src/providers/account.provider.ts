@@ -23,8 +23,7 @@ export interface IAccount {
 @Injectable()
 export class AccountProvider extends Database<IAccount> {
 
-
-    constructor(sqlite: SQLite, private opeProv: OperationProvider) {
+    constructor(sqlite: SQLite, protected opeProv: OperationProvider) {
         super(sqlite);
     }
 
@@ -46,6 +45,7 @@ export class AccountProvider extends Database<IAccount> {
             db.executeSql(account, {})
             .then(()=>{
                 db.executeSql("ALTER TABLE account ADD COLUMN coin VARCHAR(50);",{});
+                db.executeSql("ALTER TABLE account ALTER COLUMN balance REAL NOT NULL",{});
             })
             .then(data => resolve_(true)).catch(err => reject_(err));
         });
@@ -69,7 +69,7 @@ export class AccountProvider extends Database<IAccount> {
                     if (value.balance > 0) {
                         this.opeProv.insert({
                             account_id: value._id,
-                            multitype_id: "2.1",
+                            multitype_id: OperationProvider.ADD_TYPE,
                             description: "Saldo Inicial",
                             add: value.balance
                         }).then(data => {
@@ -87,16 +87,17 @@ export class AccountProvider extends Database<IAccount> {
 
     protected getImp(db: SQLiteObject, id: number): Promise<IAccount> {
         return new Promise<IAccount>((resolve_, reject_) => {
-            db.executeSql('SELECT * FROM account WHERE _id=?', [id])
+            db.executeSql('SELECT * FROM account WHERE _id=? ', [id])
                 .then((data) => {
                     resolve_(data.rows.item(0));
                 })
                 .catch(err => reject_(err));
         });
     }
+
     protected getAllImp(db: SQLiteObject): Promise<IAccount[]> {
         return new Promise<IAccount[]>((resolve_, reject_) => {
-            db.executeSql('SELECT * FROM account', null)
+            db.executeSql('SELECT * FROM account WHERE multitype_id IS NULL', null)
                 .then((data) => {
                     let accounts = [];
                     for (var i = 0; i < data.rows.length; i++) {
@@ -108,7 +109,7 @@ export class AccountProvider extends Database<IAccount> {
         });
     }
 
-    protected updateImp(db: SQLiteObject, value: IAccount): Promise<boolean> {
+    protected updateImp(db: SQLiteObject, value: IAccount): Promise<IAccount | string> {
         return Promise.reject(false);
     }
 

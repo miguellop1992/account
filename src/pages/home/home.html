@@ -7,10 +7,12 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="background-light">
 
   <ion-card class="card" *ngFor="let item of list">
-    <button class="close"  (click)="delete(item)" >x</button>
+    <button class="close"  (click)="delete(item)" >
+      <ion-icon name="close"></ion-icon>
+    </button>
     <ion-item >
         <h2>{{item.name}}</h2>
         <h1 class="money">{{item.balance|number:'.2-2'}}{{ item.coin || '' }}</h1>        

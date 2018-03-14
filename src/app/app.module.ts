@@ -11,12 +11,14 @@ import { OperationPageModule } from '../pages/operation/operation.module';
 import { DepositPageModule } from '../pages/deposit/deposit.module';
 import { RetirementPageModule } from '../pages/retirement/retirement.module';
 import { DebtListPageModule } from '../pages/debt-list/debt-list.module';
+import { AboutPageModule } from '../pages/about/about.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { SQLite } from '@ionic-native/sqlite';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { DebtListProvider } from '../providers/debt-list.provider';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -43,7 +45,8 @@ export function createTranslateLoader(http: Http) {
     DepositPageModule,
     RetirementPageModule,
     AccountPageModule,
-    DebtListPageModule
+    DebtListPageModule,
+    AboutPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -56,6 +59,7 @@ export function createTranslateLoader(http: Http) {
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    DebtListProvider,
     
   ]
 })
