@@ -2,7 +2,7 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import 'rxjs/add/operator/map';
 
 export abstract class Database<T>{
-  private db: SQLiteObject;
+  protected db: SQLiteObject;
 
   constructor(private sqlite: SQLite) {
 
@@ -38,7 +38,7 @@ export abstract class Database<T>{
 
   protected abstract getAllImp(db: SQLiteObject,params?:{}): Promise<T[]>;
 
-  protected abstract updateImp(db: SQLiteObject, value: T): Promise<boolean>;
+  protected abstract updateImp(db: SQLiteObject, value: T): Promise<T | string>;
 
   protected abstract deleteImp(db: SQLiteObject, id: number): Promise<boolean>;
 
@@ -79,7 +79,7 @@ export abstract class Database<T>{
     });
   }
 
-  update(value: T): Promise<boolean>{
+  update(value: T): Promise<T | string>{
     return new Promise((resolve_, reject_) => {
       this.open().then(data => {
         resolve_(this.updateImp(this.db,value));

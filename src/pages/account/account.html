@@ -10,7 +10,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Creacion de cuenta</ion-title>
+    <ion-title>{{'account.create-title'|translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -21,25 +21,25 @@
     <ion-list inset>
 
       <ion-item>
-        <ion-label>Nombre:</ion-label>
-        <ion-input name="name" formControlName="name" id="name"  type="text"></ion-input>
+        <ion-label>{{'label.name'|translate}}:</ion-label>
+        <ion-input name="name" formControlName="name" id="name"  type="text" clearInput ></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>Saldo inicial:</ion-label>
-        <ion-input text-right name="balance" formControlName="balance" id="balance" type="number"></ion-input>
+        <ion-label>{{'label.balance'|translate}}:</ion-label>
+        <ion-input text-right name="balance" formControlName="balance" id="balance" type="number" clearInput ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Moneda:</ion-label>
-        <ion-input name="coin" formControlName="coin" id="coin"></ion-input>
+        <ion-label>{{'label.coin'|translate}}:</ion-label>
+        <ion-input name="coin" formControlName="coin" id="coin" clearInput  ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Observacion:</ion-label>
-        <ion-textarea name="observation" formControlName="observation" id="observation"></ion-textarea>
+        <ion-label>{{'label.observation'|translate}}:</ion-label>
+        <ion-textarea name="observation" formControlName="observation" id="observation" clearInput ></ion-textarea>
       </ion-item>
     </ion-list>
     <div padding>
-      <button ion-button color="primary" block type="submit"  [disabled]="!form.valid">Crear</button>
+      <button ion-button color="primary" block type="submit"  [disabled]="!form.valid">{{'label.create'|translate}}</button>
     </div>
   </form>
 </ion-content>

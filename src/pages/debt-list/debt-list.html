@@ -6,16 +6,39 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="header">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{title}}</ion-title>
+    <ion-title>{{title | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="background-light">
+  <ion-grid>
+    <ion-row *ngFor='let item of list; let i = index;'>
+      <ion-item [attr.col1]="item.status>0" color="light"  >
+        <ion-input name="name" (blur)="save(item)" [(ngModel)]="item.name" id="name" placeholder="{{ 'label.description' | translate}} ..." type="text"></ion-input>
+      </ion-item>
+      <ion-item [attr.col2]="item.status>0" color="light"   style="padding-left: 10px;">
+        <ion-input name="balance" (blur)="save(item)" [(ngModel)]="item.balance" id="balance" placeholder="{{ 'label.balance' | translate}}" type="number"></ion-input>
+      </ion-item>
+      <ion-item col-2 style="padding-left: 10px;" color="light"   *ngIf="item.status>0">
+        <ion-input name="coin" (blur)="save(item)" [(ngModel)]="item.coin" id="coin" maxlength="5" placeholder="$" type="text" uppercase></ion-input>
+      </ion-item>
+      <button col-1 ion-buttom style="background: transparent;" (click)="option(i)">
+        <ion-icon name="md-more"></ion-icon>
+      </button>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 text-center color="light">
+        <button ion-button (click)="add()" >
+          <ion-icon name="add" style="margin-right: 5px;"></ion-icon> {{ 'debt-list.add' | translate}}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

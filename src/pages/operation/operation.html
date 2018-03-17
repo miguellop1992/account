@@ -25,27 +25,25 @@
 
     <ion-toolbar>
       <ion-title>{{data.name}}</ion-title>
-      <!--<button ion-button class="text-right">
-        <ion-icon name="menu"></ion-icon>
-      </button>-->
       <ion-buttons end>
         <button ion-button (click)="delete()">
-        <span ion-text  color="assertive" showWhen="ios">Eliminar</span>
-        <ion-icon   name="md-trash" showWhen="android,windows"></ion-icon>
-      </button>
+          <span ion-text color="assertive" showWhen="ios">{{'label.delete'|translate}}</span>
+          <ion-icon name="md-trash" showWhen="android,windows"></ion-icon>
+        </button>
       </ion-buttons>
     </ion-toolbar>
   </ion-navbar>
-  <ion-list no-lines>
-    <!--<ion-item >
-      <ion-label class="text-center">{{data.name}}</ion-label>
-    </ion-item>-->
-    <ion-item>
-      <ion-label>Saldo</ion-label>
-      <p item-right>{{balance|number:'.2-2'}}{{ data.coin||'' }}</p>
+  <ion-list no-lines style="margin:0;" >
+    <button class="btn-info" *ngIf="data.observation" (click)="popover($event)">
+      <ion-icon name="ios-information-circle-outline"></ion-icon>
+    </button>
+    <ion-item class="balance" text-center>
+      <div>{{'label.balance'|translate}}</div>
+      <span [class.positive]="balance>=0" [class.negative]="balance<0">
+        {{balance|number:'.2-2'}}{{ data.coin||'' }}
+      </span>
     </ion-item>
-    <ion-item>
-      Detalles
+    <ion-item class="margin-0">
       <ion-grid>
         <ion-row>
           <ion-col text-center col-6>
@@ -63,11 +61,11 @@
 </ion-header>
 
 
-<ion-content>
+<!-- <ion-content>
 
   <ion-grid class="table">
     <ion-row class="theader">
-      <ion-col col-6>Descripcion</ion-col>
+      <ion-col col-6>{{'label.description'|translate}}</ion-col>
       <ion-col text-center col-3>+</ion-col>
       <ion-col text-center col-3>-</ion-col>
     </ion-row>
@@ -80,13 +78,64 @@
 
 
   <ion-fab right bottom>
-    <button ion-fab color="balanced"><ion-icon name="cash"></ion-icon></button>
+    <button ion-fab color="balanced">
+      <ion-icon name="cash"></ion-icon>
+    </button>
     <ion-fab-list side="left">
-      <button ion-fab color="assertive" (click)="open('retirement')"><ion-icon name="arrow-down"></ion-icon></button>
-      <button ion-fab color="balanced" (click)="open('deposit')"><ion-icon name="arrow-up"></ion-icon></button>
+      <button ion-fab color="assertive" (click)="open('retirement')">
+        <ion-icon name="arrow-down"></ion-icon>
+      </button>
+      <button ion-fab color="balanced" (click)="open('deposit')">
+        <ion-icon name="arrow-up"></ion-icon>
+      </button>
     </ion-fab-list>
 
   </ion-fab>
 
 
-</ion-content>
+</ion-content> -->
+<ion-content class="background-light">
+    <ion-card *ngFor="let item of list">
+      <button class="close"  (click)="deleteOpe(item)" >
+        <ion-icon name="close"></ion-icon>
+      </button>
+      <ion-card-content>
+          <h2>{{item.description}}</h2>
+          <h1 class="money"  [ngSwitch]="item.multitype_id" >
+            <span *ngSwitchCase="'2.1'" class="positive" >
+                {{item.add|number:'.2-2'}}{{ data.coin||'' }}
+                <ion-icon color="balanced" name="arrow-up"></ion-icon>
+            </span>
+            <span *ngSwitchCase="'2.2'" class="negative">
+                
+                 -{{item.subtract|number:'.2-2'}}{{ data.coin||'' }}
+                 <ion-icon color="danger" name="arrow-down"></ion-icon>
+            </span>
+          </h1>
+          <!-- <span >
+              {{balance|number:'.2-2'}}{{ data.coin||'' }}
+            </span> -->
+          <!-- <ion-col text-right col-3>{{item.add|number:'.2-2'}}</ion-col> -->
+          <!-- <ion-col text-right col-3>{{item.subtract|number:'.2-2'}}</ion-col> -->
+      </ion-card-content>
+    </ion-card>
+
+  
+  
+    <ion-fab right bottom>
+      <button ion-fab color="balanced">
+        <ion-icon name="cash"></ion-icon>
+      </button>
+      <ion-fab-list side="left">
+        <button ion-fab color="assertive" (click)="open('retirement')">
+          <ion-icon name="arrow-down"></ion-icon>
+        </button>
+        <button ion-fab color="balanced" (click)="open('deposit')">
+          <ion-icon name="arrow-up"></ion-icon>
+        </button>
+      </ion-fab-list>
+  
+    </ion-fab>
+  
+  
+  </ion-content>

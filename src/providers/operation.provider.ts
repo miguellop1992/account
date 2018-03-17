@@ -21,6 +21,7 @@ export interface IOperation {
 
 @Injectable()
 export class OperationProvider extends Database<IOperation> {
+    static ADD_TYPE: string = '2.1'
 
 
     constructor(sqlite: SQLite) {
@@ -114,18 +115,26 @@ export class OperationProvider extends Database<IOperation> {
         });
     }
 
-    protected updateImp(db: SQLiteObject, value: IOperation): Promise<boolean> {
+    protected updateImp(db: SQLiteObject, value: IOperation): Promise<IOperation | string> {
         return Promise.reject(false);
     }
 
     protected deleteImp(db: SQLiteObject, id: number): Promise<boolean> {
-        return Promise.reject(false);
-
-        // return new Promise<boolean>((resolve_, reject_) => {
-        //     db.executeSql('DELETE FROM account WHERE _id='+id, {})
-        //         .then((data) => resolve_(true))
-        //         .catch(err => reject_(err));
-        // });
+        return new Promise<boolean>((resolve_, reject_) => {
+            db.executeSql('SELECT * FROM operation WHERE _id=' + id, {})
+                .then((data) => {
+                    let ope=<IOperation>data.rows.item(0);
+                    db.executeSql('UPDATE account SET balance=balance+? WHERE _id=?', [
+                        (ope.multitype_id=='2.1')?ope.add*-1: ope.subtract,
+                        ope.account_id
+                    ])
+                    .then(() => {
+                        db.executeSql('DELETE FROM operation WHERE _id=' + id, {})
+                        .then(()=>resolve_(true));                        
+                    });
+                })
+                .catch(err => reject_(err));
+        });
     }
 
     balances(account_id: number): Promise<{ balance: number, add: number, subtract: number }> {
@@ -139,7 +148,7 @@ export class OperationProvider extends Database<IOperation> {
                         subtract = data.rows.item(0).subtract;
                         db.executeSql('SELECT balance FROM account WHERE _id=?', [account_id])
                             .then(data => {
-                                let balance=data.rows.item(0).balance;
+                                let balance = data.rows.item(0).balance;
                                 resolve_({
                                     add: add ? add : 0,
                                     subtract: subtract ? subtract : 0,

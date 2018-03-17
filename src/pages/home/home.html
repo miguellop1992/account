@@ -3,17 +3,22 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{title}}</ion-title>
+    <ion-title>{{title | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="background-light">
 
-  <ion-card *ngFor="let item of list">
-    <ion-item class="check" (click)="openOperation(item)">
-      <h2>{{item.name}}</h2>
-      <p>Saldo: {{item.balance|number:'.2-2'}}{{ item.coin || '' }}</p>
-      <ion-icon name="ios-arrow-forward-outline" item-end></ion-icon>
+  <ion-card class="card" *ngFor="let item of list">
+    <button class="close"  (click)="delete(item)" >
+      <ion-icon name="close"></ion-icon>
+    </button>
+    <ion-item >
+        <h2>{{item.name}}</h2>
+        <h1 class="money">{{item.balance|number:'.2-2'}}{{ item.coin || '' }}</h1>        
+    </ion-item>
+    <ion-item color="primary" class="btn-detail" (click)="openOperation(item)">
+      <span>{{ 'label.detail' | translate }}</span>
     </ion-item>
   </ion-card>
 

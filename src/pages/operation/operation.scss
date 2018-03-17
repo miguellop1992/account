@@ -2,3 +2,40 @@ page-operation {
 
 }
 
+.balance{
+    span{
+        margin: 0 0 2px;
+        font-size: 3.4rem;
+        font-weight: normal;
+    }
+}
+
+
+.negative{
+    color: color($colors,danger);
+}
+    
+.positive{
+    color: color($colors,balanced);
+}
+
+.margin-0{
+    ion-label{
+        margin: 0!important;
+    }
+}
+.btn-info{
+    background: transparent;
+    position: absolute;
+    font-size: x-large;
+    bottom: 2px;
+    z-index: 1;
+}
+
+.close{
+    background: transparent;
+    position: absolute;
+    color: #757575;
+    right: 10px;
+    z-index: 1;
+}

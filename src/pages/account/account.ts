@@ -16,7 +16,7 @@ export class AccountPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private accProv: AccountProvider, private fb: FormBuilder) {
     this.form = this.fb.group({
       name: new FormControl("", [Validators.required]),
-      balance: new FormControl("", []),
+      balance: new FormControl("", [Validators.minLength(0)]),
       coin: new FormControl("", []),
       observation: new FormControl("", []),
     });

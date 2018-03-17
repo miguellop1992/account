@@ -8,11 +8,11 @@
 
   <ion-toolbar color="header">
     <ion-title>
-      Retiro
+      {{'label.retirement'|translate}}
     </ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
-        <span ion-text color="primary" showWhen="ios">Cerrar</span>
+        <span ion-text color="primary" showWhen="ios">{{'label.close'|translate}}</span>
         <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
       </button>
     </ion-buttons>
@@ -26,18 +26,18 @@
     <ion-list inset>
       
       <ion-item>
-        <ion-label>Descripcion:</ion-label>
-        <ion-textarea  formControlName="description" id="description" name="description" ></ion-textarea>
+        <ion-label>{{'label.description'|translate}}:</ion-label>
+        <ion-textarea  formControlName="description" id="description" name="description" clearInput ></ion-textarea>
       </ion-item>
 
       <ion-item>
-        <ion-label>Monto:</ion-label>
-        <ion-input formControlName="subtract" id="subtract" type="number" name="subtract"  text-right></ion-input>
+        <ion-label>{{'label.quantity'|translate}}:</ion-label>
+        <ion-input formControlName="subtract" id="subtract" type="number" name="subtract"  clearInput text-right></ion-input>
       </ion-item>
 
     </ion-list>
     <div padding>
-      <button ion-button color="primary" block [disabled]="!form.valid" type="submit">Aceptar</button>
+      <button ion-button color="primary" block [disabled]="!form.valid" type="submit">{{'label.accept'|translate}}</button>
     </div>
   </form>
 
