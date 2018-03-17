@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="ve.com.miguellop.account" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="ve.com.miguellop.moneycount" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Money Count</name>
     <description>Aplicacion para llevar el control de las cuentas</description>
     <author email="miguellop1992@gmail.com" href="">Ing. Miguel López</author>
-    <content original-src="index.html" src="http://192.168.43.105:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-navigation href="http://192.168.1.115:8100" />
