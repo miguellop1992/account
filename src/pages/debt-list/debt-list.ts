@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, Platform, ActionSheetController } from 'ionic-angular';
+import { Component, Renderer } from '@angular/core';
+import { NavController, Platform, ActionSheetController, Keyboard } from 'ionic-angular';
 import { IAccount } from '../../providers/account.provider';
 import { OperationPage } from '../../pages/operation/operation';
 import { TranslateService } from '@ngx-translate/core';
@@ -22,9 +22,20 @@ export interface IAccount2 extends IAccount {
 export class DebtListPage {
   static title: string = "debt-list.title";
   public list: IAccount2[] = [];
+  // private list: IAccount2[] = [{
+  //   balance: 400000000000,
+  //   name: "Pago Mami",
+  //   coin: "$",
+  //   observation: " Data Prieba"
+  // },
+  // {
+  //   balance: 40000,
+  //   name: "Pago Mami2",
+  //   coin: "$"
+  // }];
   private dataText;
 
-  constructor(public navCtrl: NavController, private debList: DebtListProvider, public plt: Platform, public translate: TranslateService, public actSheet: ActionSheetController) {
+  constructor(public navCtrl: NavController, public renderer: Renderer, public keyboard: Keyboard, private debList: DebtListProvider, public plt: Platform, public translate: TranslateService, public actSheet: ActionSheetController) {
 
   }
 
@@ -33,9 +44,7 @@ export class DebtListPage {
   }
 
   ionViewWillEnter() {
-    this.plt.ready().then(() => {
-      this.load();
-    })
+    this.load();
     this.translate.get([
       "label.add",
       "label.remove",
@@ -48,12 +57,24 @@ export class DebtListPage {
   }
 
   save(value) {
+    let balance = value.balance;
+    if (balance) {
+      balance = Math.abs(balance);
+      if (isNaN(balance)) {
+        value.balance = 0.0;
+      }
+    }
     this.debList.update(value).then();
   }
 
   load() {
     this.debList.getAll().then((data: IAccount2[]) => {
       if (data.length > 0) {
+        data.forEach((e: IAccount2) => {
+          if (e.coin && e.coin.length > 0) {
+            e.status = 1;
+          }
+        });
         this.list = data;
       } else {
         this.add(true);
@@ -63,20 +84,21 @@ export class DebtListPage {
 
   add(add = false) {
     let value = this.list[this.list.length - 1];
-    if ((value && value.name && value.balance) || add) {
+    if ((value && value.name && value.balance && !(value.status > 0)) ||
+      (value && value.name && value.balance && value.coin && value.status > 0) || add) {
       this.debList.insert({}).then((data: IAccount2) => {
-        data.status= (value) ? value.status : 0 ;
+        data.status = (value) ? value.status : 0;
         this.list.push(data);
       });
     } else {
       return;
     }
+
   }
 
-  
 
-  option( index) {
-    let value:IAccount2= this.list[index];
+  option(value_, index) {
+    let value: IAccount2 = this.list[index];
     let actionSheet = this.actSheet.create({
       buttons: [
         {
@@ -84,18 +106,18 @@ export class DebtListPage {
           handler: () => {
             if (value.status > 0) {
               value.status = 0;
-              value.coin=null;
+              value.coin = null;
               this.debList.update(value).then();
             } else {
               value.status = 1;
-            };
+            }
           }
         }, {
           text: this.dataText["debt-list.to-account"],
           handler: () => {
-            if(value && value.name && value.balance){
-              value.observation=this.dataText["debt-list.observation"];
-              this.debList.toAccount(value).then(()=>{
+            if (value && value.name && value.balance) {
+              value.observation = this.dataText["debt-list.observation"];
+              this.debList.toAccount(value).then(() => {
                 this.navCtrl.push(OperationPage, value);
                 this.load();
               });
@@ -105,11 +127,13 @@ export class DebtListPage {
           text: this.dataText["label.delete"],
           role: 'destructive',
           handler: () => {
-            if (this.list.length == 1) {
-              value.name= '';
-              value.balance=null;
+            if (this.list.length < 2) {
+              value.name = '';
+              value.balance = null;
+              value.coin = null;
+              value.status = 0;
               this.debList.update(value).then();
-            }else{
+            } else {
               this.debList.delete(value._id).then(data => this.list.splice(index, 1));
             }
           }
@@ -122,7 +146,16 @@ export class DebtListPage {
     actionSheet.present();
   }
 
+  showCoin(item, coin, index) {
+    let flag = (item.status > 0);
+    if (flag && coin && !item.coin && (item.name && item.balance)) {
 
+      if (index == this.list.length - 1) {
+        return flag;
+      }
+      coin.setFocus();
+    }
 
-
+    return flag;
+  }
 }

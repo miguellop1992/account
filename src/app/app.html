@@ -5,12 +5,12 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+  <ion-content  class="background-light">
     <ion-list  >
-      <ion-item  menuClose *ngFor="let p of pages" (click)="openPage(p)">
+      <ion-item  style="background:transparent;" menuClose *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title | translate}}
       </ion-item >
-      <ion-item  menuClose style="position: fixed;bottom: 0;"  (click)="openAbout()">
+      <ion-item  menuClose style="background:transparent;position: fixed;bottom: 0;"  (click)="openAbout()">
         {{'about.title' | translate}}
       </ion-item >
     </ion-list>
@@ -19,4 +19,4 @@
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+<ion-nav class="background-light" [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

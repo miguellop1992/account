@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Platform } from 'ionic-angular';
 import { SQLite, SQLiteObject, SQLiteTransaction } from '@ionic-native/sqlite';
 import { Database } from './database';
 import 'rxjs/add/operator/map';
@@ -22,10 +23,11 @@ export interface IOperation {
 @Injectable()
 export class OperationProvider extends Database<IOperation> {
     static ADD_TYPE: string = '2.1'
+    static SUBTRACT_TYPE: string = '2.2'
 
 
-    constructor(sqlite: SQLite) {
-        super(sqlite);
+    constructor(sqlite: SQLite, platform: Platform) {
+        super(sqlite,platform);
     }
 
     protected table(db: SQLiteObject): Promise<boolean> {
@@ -69,7 +71,7 @@ export class OperationProvider extends Database<IOperation> {
                                 value._id = data.insertId;
                                 value.balance = balance;
 
-                                if (value.multitype_id == "2.1") {
+                                if (value.multitype_id == OperationProvider.ADD_TYPE) {
                                     balance += (typeof value.add === 'string') ? parseFloat("" + value.add) : value.add;
                                 } else {
                                     balance -= (typeof value.subtract === 'string') ? parseFloat("" + value.subtract) : value.subtract;
@@ -125,7 +127,7 @@ export class OperationProvider extends Database<IOperation> {
                 .then((data) => {
                     let ope=<IOperation>data.rows.item(0);
                     db.executeSql('UPDATE account SET balance=balance+? WHERE _id=?', [
-                        (ope.multitype_id=='2.1')?ope.add*-1: ope.subtract,
+                        (ope.multitype_id==OperationProvider.ADD_TYPE)?ope.add*-1: ope.subtract,
                         ope.account_id
                     ])
                     .then(() => {

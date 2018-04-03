@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { Platform } from 'ionic-angular';
 import { OperationProvider } from './operation.provider';
 import { AccountProvider, IAccount } from './account.provider';
 import 'rxjs/add/operator/map';
@@ -14,8 +15,8 @@ import 'rxjs/add/operator/map';
 export class DebtListProvider extends AccountProvider {
     static ID = '1.1';
 
-    constructor(sqlite: SQLite, protected opeProv: OperationProvider) {
-        super(sqlite, opeProv);
+    constructor(sqlite: SQLite, platform: Platform, protected opeProv: OperationProvider) {
+        super(sqlite,platform, opeProv);
     }
 
     protected insertImp(db: SQLiteObject, value: IAccount): Promise<IAccount | string> {
@@ -29,7 +30,10 @@ export class DebtListProvider extends AccountProvider {
                     (value.balance) ? value.balance : null,
                     new Date().toISOString()
                 ])
-                .then((data) => resolve_(data))
+                .then((data) => {
+                    value._id=data.insertId
+                    resolve_(value);
+                })
                 .catch(err => reject_(err.message));
         });
     }
@@ -64,7 +68,7 @@ export class DebtListProvider extends AccountProvider {
 
     protected deleteImp(db: SQLiteObject, id: number): Promise<boolean> {
         return new Promise<boolean>((resolve_, reject_) => {
-            db.executeSql('DELETE FROM account WHERE _id=?', [id])
+            db.executeSql('DELETE FROM account WHERE _id='+id, [])
                 .then((data) => resolve_(data))
                 .catch(err => reject_(err));
         });

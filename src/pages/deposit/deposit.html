@@ -27,12 +27,12 @@
       
       <ion-item>
         <ion-label>{{'label.description'|translate}}:</ion-label>
-        <ion-textarea  formControlName="description" id="description" name="description" clearInput ></ion-textarea>
+        <ion-input  type="text"  formControlName="description" id="description" name="description" clearInput required></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>{{'label.quantity'|translate}}:</ion-label>
-        <ion-input formControlName="add" id="add" type="number" name="add" clearInput text-right></ion-input>
+        <ion-input formControlName="add" id="add" type="number" name="add" min="0"  clearInput text-right required></ion-input>
       </ion-item>
 
     </ion-list>

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Platform } from 'ionic-angular';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { Database } from './database';
-import { OperationProvider } from './operation.provider';
+import { OperationProvider, IOperation } from './operation.provider';
 
 import 'rxjs/add/operator/map';
 
@@ -23,8 +24,8 @@ export interface IAccount {
 @Injectable()
 export class AccountProvider extends Database<IAccount> {
 
-    constructor(sqlite: SQLite, protected opeProv: OperationProvider) {
-        super(sqlite);
+    constructor(sqlite: SQLite, platform: Platform, protected opeProv: OperationProvider) {
+        super(sqlite, platform);
     }
 
     protected table(db: SQLiteObject): Promise<boolean> {
@@ -36,18 +37,16 @@ export class AccountProvider extends Database<IAccount> {
                 _id INTEGER PRIMARY KEY AUTOINCREMENT,
                 multitype_id VARCHAR(50),
                 name VARCHAR(50),
+                coin VARCHAR(50),
                 observation VARCHAR(256),
-                balance REAL,
+                balance REAL ,
                 created DATETIME      
             );
             `
-            
+
             db.executeSql(account, {})
-            .then(()=>{
-                db.executeSql("ALTER TABLE account ADD COLUMN coin VARCHAR(50);",{});
-                db.executeSql("ALTER TABLE account ALTER COLUMN balance REAL NOT NULL",{});
-            })
-            .then(data => resolve_(true)).catch(err => reject_(err));
+                .then(() => resolve_(true))
+                .catch(err => reject_(false));
         });
 
     }
@@ -66,18 +65,21 @@ export class AccountProvider extends Database<IAccount> {
                 ])
                 .then((data) => {
                     value._id = data.insertId;
+                    let ope: IOperation = {
+                        account_id: value._id,
+                        description: "Saldo Inicial",
+                    };
                     if (value.balance > 0) {
-                        this.opeProv.insert({
-                            account_id: value._id,
-                            multitype_id: OperationProvider.ADD_TYPE,
-                            description: "Saldo Inicial",
-                            add: value.balance
-                        }).then(data => {
-                            resolve_(value);
-                        })
-                    }else{
-                        resolve_(value);
+                        ope.multitype_id = OperationProvider.ADD_TYPE;
+                        ope.add = Math.abs(value.balance);
+                    } else {
+                        ope.multitype_id = OperationProvider.SUBTRACT_TYPE;
+                        ope.subtract = Math.abs(value.balance);
                     }
+
+                    this.opeProv.insert(ope).then(data => {
+                        resolve_(value);
+                    })
 
 
                 })
@@ -95,9 +97,9 @@ export class AccountProvider extends Database<IAccount> {
         });
     }
 
-    protected getAllImp(db: SQLiteObject): Promise<IAccount[]> {
+    protected getAllImp(db: SQLiteObject, params?: {}): Promise<IAccount[]> {
         return new Promise<IAccount[]>((resolve_, reject_) => {
-            db.executeSql('SELECT * FROM account WHERE multitype_id IS NULL', null)
+            db.executeSql('SELECT * FROM account WHERE multitype_id IS NULL', [])
                 .then((data) => {
                     let accounts = [];
                     for (var i = 0; i < data.rows.length; i++) {

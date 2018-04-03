@@ -29,12 +29,11 @@ export class AccountPage {
   submit() {
     this.parse();
     this.accProv.insert(this.data).then(data => this.navCtrl.getActive().dismiss());
-
   }
 
   parse() {
     this.data = this.form.value;
-    if (!this.data.balance || this.data.balance == null) {
+    if ( isNaN(this.data.balance) && isFinite(this.data.balance)) {
       this.data.balance = 0.0;
     }
   }

@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Globalization } from '@ionic-native/globalization';
+
 import { HomePage } from '../pages/home/home';
 import { DebtListPage } from '../pages/debt-list/debt-list';
 import { AboutPage } from '../pages/about/about';
@@ -15,9 +17,9 @@ export class MyApp {
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public translate:TranslateService) {
+  constructor(public platform: Platform, private globalization: Globalization, public statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -29,13 +31,22 @@ export class MyApp {
   }
 
   initializeApp() {
-    this.translate.setDefaultLang("es");
+    this.globalization.getPreferredLanguage()
+      .then(res => {
+        let lang="es";
+        if(res.value.indexOf("es")<0){
+          lang="en";
+        }
+        this.translate.setDefaultLang(lang);
+      })
+      .catch(e => this.translate.setDefaultLang("es"));
+
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      
+
     });
   }
 

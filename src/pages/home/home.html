@@ -1,5 +1,5 @@
-<ion-header >
-  <ion-navbar color="header" >
+<ion-header>
+  <ion-navbar color="header">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -8,14 +8,13 @@
 </ion-header>
 
 <ion-content class="background-light">
-
   <ion-card class="card" *ngFor="let item of list">
-    <button class="close"  (click)="delete(item)" >
+    <button class="close" (click)="delete(item)">
       <ion-icon name="close"></ion-icon>
     </button>
-    <ion-item >
-        <h2>{{item.name}}</h2>
-        <h1 class="money">{{item.balance|number:'.2-2'}}{{ item.coin || '' }}</h1>        
+    <ion-item>
+      <h2>{{item.name}}</h2>
+      <h1 class="money">{{item.balance|number:'.2-2'}}{{ item.coin || '' }}</h1>
     </ion-item>
     <ion-item color="primary" class="btn-detail" (click)="openOperation(item)">
       <span>{{ 'label.detail' | translate }}</span>
@@ -25,6 +24,8 @@
 
 
   <ion-fab right bottom>
-    <button ion-fab (click)="add()"><ion-icon name="add"></ion-icon></button>
+    <button ion-fab color="secondary" (click)="add()">
+      <ion-icon name="add"></ion-icon>
+    </button>
   </ion-fab>
 </ion-content>
