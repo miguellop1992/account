@@ -45,6 +45,10 @@ private data:IOperation;
 
   parse(){
     this.data.description=this.form.value.description;
-    this.data.subtract = parseFloat(this.form.value.subtract);
+    let balance=Math.abs(this.form.value.subtract);
+    if (isNaN(balance)) {
+      balance = 0.0;
+    }
+    this.data.subtract = balance;
   }
 }

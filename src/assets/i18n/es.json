@@ -24,17 +24,17 @@
         "github": "Github",
         "linkedin": "Linkedin"
     },
-    "app-title": "Mis Cuentas",
+    "app-title": "Money Count",
     "account":{
-        "title":"Cuentas",
+        "title":"Movimientos",
         "create-title": "Creación de cuenta",
         "msg-delete":"¿Esta seguro que desea eliminar esta cuenta?"
     },
     "debt-list":{
-        "title":"Lista de deudas",
-        "add": "Agregar deuda",
-        "to-account": "Llevar a Cuentas",
-        "observation": "Esta cuenta se origino en \"Lista de deudas\""
+        "title":"Listados",
+        "add": "Agregar cuenta",
+        "to-account": "Llevar a movimientos",
+        "observation": "Esta cuenta se origino en \"Listados de cuentas\""
 
     },
     "deposit":{

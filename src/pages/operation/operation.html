@@ -52,7 +52,7 @@
           </ion-col>
           <ion-col text-center col-6>
             <ion-icon color="assertive" name="arrow-down"></ion-icon>
-            {{subtract|number:'.2-2'}}
+            {{ ((subtract>0)?'-':'')+subtract|number:'.2-2' }}
           </ion-col>
         </ion-row>
       </ion-grid>

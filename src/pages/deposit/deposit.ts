@@ -45,7 +45,13 @@ export class DepositModal {
 
   parse(){
     this.data.description=this.form.value.description;
-    this.data.add = parseFloat(this.form.value.add);
+
+    let balance=Math.abs(this.form.value.add);
+    if (isNaN(balance)) {
+      balance = 0.0;
+    }
+    this.data.add = balance;
+    // this.data.add = parseFloat(this.form.value.add);
     
   }
 

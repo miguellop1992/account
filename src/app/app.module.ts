@@ -4,6 +4,9 @@ import { FormsModule }   from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { Globalization } from '@ionic-native/globalization';
+import { AdMobFree } from '@ionic-native/admob-free';
+
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AccountPageModule } from '../pages/account/account.module';
@@ -60,6 +63,8 @@ export function createTranslateLoader(http: Http) {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DebtListProvider,
+    Globalization,
+    AdMobFree
     
   ]
 })

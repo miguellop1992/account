@@ -18,6 +18,5 @@ import { DebtListProvider } from '../../providers/debt-list.provider';
   providers: [
     DebtListProvider
   ]
-
 })
 export class DebtListPageModule {}
