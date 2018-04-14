@@ -19,7 +19,9 @@ export class MyApp {
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, private globalization: Globalization, public statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService) {
+  
+
+  constructor(public platform: Platform,  private globalization: Globalization, public statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -30,6 +32,7 @@ export class MyApp {
 
   }
 
+  
   initializeApp() {
     this.globalization.getPreferredLanguage()
       .then(res => {
@@ -46,6 +49,9 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      // this.ads();
+
 
     });
   }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController,  AlertController, Alert,Platform } from 'ionic-angular';
+import { NavController, AlertController, Alert, Platform } from 'ionic-angular';
+import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
+
 import { AccountPage } from '../../pages/account/account';
 import { OperationPage } from '../../pages/operation/operation';
 import { AccountProvider, IAccount } from '../../providers/account.provider';
@@ -28,7 +30,23 @@ export class HomePage {
   //   coin: "$"
   // }];
 
-  constructor(public navCtrl: NavController, private accProv: AccountProvider, private alertCtrl: AlertController,public plt: Platform, public translate:TranslateService) {
+  constructor(public navCtrl: NavController, private admobFree: AdMobFree, public platform: Platform, private accProv: AccountProvider, private alertCtrl: AlertController, public plt: Platform, public translate: TranslateService) {
+    this.ads();
+  }
+
+  ads() {
+    if (this.platform.is('android')) {
+      const bannerConfig: AdMobFreeBannerConfig = {
+        id: 'ca-app-pub-5963327352744308/4943624861',
+        // isTesting: true,
+        autoShow: true
+      };
+
+      this.admobFree.banner.config(bannerConfig);
+
+      this.admobFree.banner.prepare();
+
+    }
 
   }
 
@@ -38,7 +56,7 @@ export class HomePage {
     })
   }
 
-  load(){
+  load() {
     this.accProv.getAll().then(data => this.list = data);
   }
 
@@ -55,7 +73,7 @@ export class HomePage {
   }
 
   delete(acc) {
-    this.translate.get(['label.warn','account.msg-delete','label.yes','label.no']).subscribe(data=>{
+    this.translate.get(['label.warn', 'account.msg-delete', 'label.yes', 'label.no']).subscribe(data => {
       let alert = this.alertCtrl.create({
         title: data['label.warn'],
         subTitle: data['account.msg-delete'],
@@ -77,6 +95,6 @@ export class HomePage {
       });
       alert.present();
     });
-    
+
   }
 }
