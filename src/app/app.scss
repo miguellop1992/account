@@ -14,3 +14,37 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.table{
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 2rem;
+    background-color: #fff;
+}
+
+.theader{
+    font-weight: 400;
+    color: #757575;
+    vertical-align: bottom;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.tbody{
+    text-align: left;
+    // padding: 1.6rem;
+    vertical-align: top;
+    border-top: 0;
+}
+
+h1.money{
+    text-align: right!important;
+}
+
+.background-light{
+    background: color($colors,light);
+}
+
+
+body{
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+}

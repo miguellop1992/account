@@ -1,0 +1,61 @@
+{
+    "label":{
+        "menu": "Menu",
+        "detail": "Detalles",
+        "name": "Nombre",
+        "coin": "Moneda",
+        "balance": "Saldo",
+        "observation": "Observación",
+        "create": "Crear",
+        "delete": "Eliminar",
+        "description": "Descripción",
+        "quantity": "Monto",
+        "deposit": "Abono",
+        "retirement":"Retiro",
+        "close": "Cerrar",
+        "accept": "Aceptar",
+        "warn": "Advertencia",
+        "yes": "Si",
+        "no": "No",
+        "add": "Agregar",
+        "remove": "Quitar",
+        "exit": "Salir",
+        "powerby": "Desarrollado por",
+        "github": "Github",
+        "linkedin": "Linkedin"
+    },
+    "app-title": "Money Count",
+    "account":{
+        "title":"Movimientos",
+        "create-title": "Creación de cuenta",
+        "msg-delete":"¿Esta seguro que desea eliminar esta cuenta?"
+    },
+    "debt-list":{
+        "title":"Listados",
+        "add": "Agregar cuenta",
+        "to-account": "Llevar a movimientos",
+        "observation": "Esta cuenta se origino en \"Listados de cuentas\""
+
+    },
+    "deposit":{
+
+    },
+    "home":{
+
+    },
+    "operation":{
+        "msg-delete":"¿Esta seguro que desea eliminar esta transaccion?"
+    },
+    "retirement":{
+
+    },
+    "about":{
+        "title":"Acerca de ...",
+        "opensource":"Codigo Abierto",
+        "info": "Conocimientos",
+        "powerby": "Ing. Miguel López",
+        "github": "https://github.com/miguellop1992",
+        "linkedin": "https://www.linkedin.com/in/miguellop/",
+        "info-text": "Desarrollo de aplicaciónes con diversas tecnologías como lo son  Java,( JavaFX, JPA, Sprint ), Laravel, NodeJS, Angular y React, para móvil  Ionic con conocimientos en diversas bases de datos Postgresql, MySQL, SQlite, MongoDB y con control de versiones git utilizando metodologia git-flow."
+    }
+}

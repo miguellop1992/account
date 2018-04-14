@@ -1,0 +1,17 @@
+page-debt-list {
+    
+}
+
+
+[col1=true]{
+    @extend [col-5];
+}
+[col1=false]{
+    @extend [col-6];
+}    
+[col2=true]{
+    @extend [col-4];
+}
+[col2=false]{
+    @extend [col-5];
+}  

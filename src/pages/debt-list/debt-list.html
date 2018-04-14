@@ -1,0 +1,49 @@
+<!--
+  Generated template for the DebtListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="header">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{title | translate}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="background-light">
+  <form>
+    <ion-grid>
+      <ion-row *ngFor='let item of list; let i = index;'>
+
+        <ion-item text-wrap [attr.col1]="item.status>0" color="light" style="background: transparent;">
+          <ion-input  [id]="'name'+i"  [attr.autofocus]="i>0"  name="name{{i}}" (ionBlur)="save(item)" [(ngModel)]="item.name"  placeholder="{{ 'label.description' | translate}} ..."
+            type="text"></ion-input>
+        </ion-item>
+        <ion-item [attr.col2]="item.status>0" color="light" style="padding-left: 10px;background: transparent;">
+          <ion-input  id="balance{{i}}" name="balance{{i}}" (ionBlur)="save(item)" min="0" [(ngModel)]="item.balance" placeholder="{{ 'label.balance' | translate}}"
+            type="number"></ion-input>
+        </ion-item>
+        <ion-item  col-2 style="padding-left: 10px;" color="light" style="background: transparent;" [hidden]="!showCoin(item,coin,i)">
+            <ion-input #coin   id="coin{{i}}" name="coin{{i}}"  [(ngModel)]="item.coin"  (ionBlur)="save(item)"  placeholder="$" type="text"></ion-input>
+
+        </ion-item>
+        <button type="button"  id="option{{i}}" col-1   style="background: transparent;" (click)="option(item,i)">
+          <ion-icon name="md-more"></ion-icon>
+        </button>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 text-center color="light">
+          <button ion-button (click)="add()">
+            <ion-icon name="add" style="margin-right: 5px;"></ion-icon> {{ 'debt-list.add' | translate}}
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

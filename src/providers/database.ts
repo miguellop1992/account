@@ -1,27 +1,33 @@
+import {  Platform } from 'ionic-angular';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import 'rxjs/add/operator/map';
 
+const win: any = window;
+
 export abstract class Database<T>{
-  private db: SQLiteObject;
-
-  constructor(private sqlite: SQLite) {
-
+  private DB_NAME:string = "__.account";
+  protected db: SQLiteObject;
+  constructor(private sqlite: SQLite,private platform: Platform) {
   }
 
   private open(): Promise<boolean> {
     return new Promise((resolve_, reject_) => {
       if (!this.db) {
-        this.sqlite.create({
-          name: '__.account',
-          location: 'default'
-        })
-          .then((db_: SQLiteObject) => {
-            this.db = db_;
-            this.table(db_)
-              .then((data) => resolve_(data))
-              .catch((err) => reject_(err));
+        if(this.platform.is('cordova')){
+          this.sqlite.create({
+            name: '__.account',
+            location: 'default'
           })
-          .catch((err) =>reject_(err));
+            .then((db_: SQLiteObject) => {
+              this.db = db_;
+              this.table(db_)
+                .then((data) => resolve_(data))
+                .catch((err) => reject_(err));
+            })
+            .catch((err) =>reject_(err));
+        }else{
+          this.db =new SQLiteObject(win.openDatabase(this.DB_NAME, '1.0', 'database', 5 * 1024 * 1024));
+        }
       }else{
         resolve_(true);
       }
@@ -37,7 +43,7 @@ export abstract class Database<T>{
 
   protected abstract getAllImp(db: SQLiteObject,params?:{}): Promise<T[]>;
 
-  protected abstract updateImp(db: SQLiteObject, value: T): Promise<boolean>;
+  protected abstract updateImp(db: SQLiteObject, value: T): Promise<T | string>;
 
   protected abstract deleteImp(db: SQLiteObject, id: number): Promise<boolean>;
 
@@ -71,14 +77,11 @@ export abstract class Database<T>{
     return new Promise<T[]>((resolve_, reject_) => {
       this.open().then(data => {
         resolve_(this.getAllImp(this.db,params));
-        // this.getAllImp(this.db)
-        // .then((data) => resolve_(data))
-        // .catch((err) => reject_(err));
       });
     });
   }
 
-  update(value: T): Promise<boolean>{
+  update(value: T): Promise<T | string>{
     return new Promise((resolve_, reject_) => {
       this.open().then(data => {
         resolve_(this.updateImp(this.db,value));

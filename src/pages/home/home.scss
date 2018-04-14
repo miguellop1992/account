@@ -1,3 +1,21 @@
 page-home {
-
+           
+    
 }
+
+.card{
+        position: relative;
+        display: block;
+        .close{
+            background: transparent;
+            position: absolute;
+            color: color($colors,close);
+            top: 2px;
+            right: 2px;
+            z-index: 1;
+        }        
+        .btn-detail{
+            text-align: center;
+            padding: 5px 5px;
+        }
+    }

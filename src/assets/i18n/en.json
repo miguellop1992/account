@@ -1,0 +1,54 @@
+{
+    "label": {
+        "menu": "Menu",
+        "detail": "Details",
+        "name": "Name",
+        "coin": "Coin",
+        "balance": "Balance",
+        "observation": "Observation",
+        "create": "Create",
+        "delete": "Delete",
+        "description": "Description",
+        "quantity": "Quantity",
+        "deposit": "Deposit",
+        "retirement": "Retirement",
+        "close": "Close",
+        "accept": "Accept",
+        "warn": "Warn",
+        "yes": "Yes",
+        "no": "No",
+        "add": "Add",
+        "remove": "Remove",
+        "exit": "Exit",
+        "powerby": "Powered By",
+        "github": "Github",
+        "linkedin": "Linkedin"
+    },
+    "app-title": "Money Count",
+    "account": {
+        "title": "Movements",
+        "create-title": "Account creation",
+        "msg-delete": "Are you sure you want to delete this account?"
+    },
+    "debt-list": {
+        "title": "Listings",
+        "add": "Add account",
+        "to-account": "Take movements",
+        "observation": "This account originated in \" Listings of accounts \""
+    },
+    "deposit": {},
+    "home": {},
+    "operation": {
+        "msg-delete": "Are you sure you want to delete this transaction?"
+    },
+    "retirement": {},
+    "about": {
+        "title": "About ...",
+        "opensource": "Open Source",
+        "info": "Knowledge",
+        "powerby": "Ing. Miguel López",
+        "github": "https://github.com/miguellop1992",
+        "linkedin": "https://www.linkedin.com/in/miguellop/",
+        "info-text": "Development of applications with various technologies such as Java, (JavaFX, JPA, Sprint), Laravel, NodeJS, Angular and React, for Ionic mobile with knowledge in various databases Postgresql, MySQL, SQlite, MongoDB and with git version control using git-flow methodology. "
+    }
+}

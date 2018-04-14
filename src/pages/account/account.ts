@@ -16,7 +16,8 @@ export class AccountPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private accProv: AccountProvider, private fb: FormBuilder) {
     this.form = this.fb.group({
       name: new FormControl("", [Validators.required]),
-      balance: new FormControl("", []),
+      balance: new FormControl("", [Validators.minLength(0)]),
+      coin: new FormControl("", []),
       observation: new FormControl("", []),
     });
   }
@@ -28,12 +29,11 @@ export class AccountPage {
   submit() {
     this.parse();
     this.accProv.insert(this.data).then(data => this.navCtrl.getActive().dismiss());
-
   }
 
   parse() {
     this.data = this.form.value;
-    if (!this.data.balance || this.data.balance == null) {
+    if ( isNaN(this.data.balance) && isFinite(this.data.balance)) {
       this.data.balance = 0.0;
     }
   }
