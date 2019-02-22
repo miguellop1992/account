@@ -9,6 +9,6 @@ Esta es una aplicación para llevar el saldo se nuestras cuentas, fue realizada 
     ionic cordova run android -l -c
 ```
 
-### Publicacion 
+### Publicación: 
 
 https://play.google.com/store/apps/details?id=ve.com.miguellop.money_count
